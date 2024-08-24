@@ -1,7 +1,6 @@
-from typing import TYPE_CHECKING, AbstractSet, Optional, Sequence
+from typing import TYPE_CHECKING, Sequence
 
 import dagster._check as check
-from dagster._core.definitions.asset_key import AssetKey
 from dagster._core.errors import DagsterUserCodeProcessError
 from dagster._core.instance import DagsterInstance
 from dagster._core.remote_representation.external_data import (
@@ -24,7 +23,6 @@ def sync_get_external_partition_names_grpc(
     api_client: "DagsterGrpcClient",
     repository_handle: RepositoryHandle,
     job_name: str,
-    selected_asset_keys: Optional[AbstractSet[AssetKey]],
 ) -> ExternalPartitionNamesData:
     from dagster._grpc.client import DagsterGrpcClient
 
@@ -36,9 +34,7 @@ def sync_get_external_partition_names_grpc(
         api_client.external_partition_names(
             partition_names_args=PartitionNamesArgs(
                 repository_origin=repository_origin,
-                job_name=job_name,
                 partition_set_name=external_partition_set_name_for_job_name(job_name),
-                selected_asset_keys=selected_asset_keys,
             ),
         ),
         (ExternalPartitionNamesData, ExternalPartitionExecutionErrorData),
@@ -67,11 +63,9 @@ def sync_get_external_partition_config_grpc(
         api_client.external_partition_config(
             partition_args=PartitionArgs(
                 repository_origin=repository_origin,
-                job_name=job_name,
                 partition_set_name=external_partition_set_name_for_job_name(job_name),
                 partition_name=partition_name,
                 instance_ref=instance.get_ref(),
-                selected_asset_keys=None,
             ),
         ),
         (ExternalPartitionConfigData, ExternalPartitionExecutionErrorData),
@@ -88,7 +82,6 @@ def sync_get_external_partition_tags_grpc(
     job_name: str,
     partition_name: str,
     instance: DagsterInstance,
-    selected_asset_keys: Optional[AbstractSet[AssetKey]],
 ) -> ExternalPartitionTagsData:
     from dagster._grpc.client import DagsterGrpcClient
 
@@ -102,11 +95,9 @@ def sync_get_external_partition_tags_grpc(
         api_client.external_partition_tags(
             partition_args=PartitionArgs(
                 repository_origin=repository_origin,
-                job_name=job_name,
                 partition_set_name=external_partition_set_name_for_job_name(job_name),
                 partition_name=partition_name,
                 instance_ref=instance.get_ref(),
-                selected_asset_keys=selected_asset_keys,
             ),
         ),
         (ExternalPartitionTagsData, ExternalPartitionExecutionErrorData),
