@@ -7,7 +7,7 @@ import {
   StyledRawCodeMirror,
   Table,
 } from '@dagster-io/ui-components';
-import {useMemo} from 'react';
+import {useContext, useMemo} from 'react';
 import {CodeLocationServerSection} from 'shared/code-location/CodeLocationServerSection.oss';
 import {CodeLocationTabs} from 'shared/code-location/CodeLocationTabs.oss';
 import {createGlobalStyle} from 'styled-components';
@@ -17,7 +17,7 @@ import {CodeLocationOverviewSectionHeader} from './CodeLocationOverviewSectionHe
 import {CodeLocationPageHeader} from './CodeLocationPageHeader';
 import {TimeFromNow} from '../ui/TimeFromNow';
 import {LocationStatus} from '../workspace/CodeLocationRowSet';
-import {WorkspaceRepositoryLocationNode} from '../workspace/WorkspaceContext';
+import {WorkspaceContext, WorkspaceRepositoryLocationNode} from '../workspace/WorkspaceContext';
 import {RepoAddress} from '../workspace/types';
 import {LocationStatusEntryFragment} from '../workspace/types/WorkspaceQueries.types';
 
@@ -116,18 +116,43 @@ export const CodeLocationOverviewRoot = (props: Props) => {
       ) : null}
       <CodeLocationOverviewSectionHeader label="Metadata" border="bottom" />
       <CodeLocationMetadataStyle />
-      <StyledRawCodeMirror
-        options={{readOnly: true, lineNumbers: false}}
-        theme={['code-location-metadata']}
-        value={metadataAsYaml}
-      />
+      <div style={{height: '320px'}}>
+        <StyledRawCodeMirror
+          options={{readOnly: true, lineNumbers: false}}
+          theme={['code-location-metadata']}
+          value={metadataAsYaml}
+        />
+      </div>
     </>
   );
 };
+
+const QueryfulCodeLocationOverviewRoot = ({repoAddress}: {repoAddress: RepoAddress}) => {
+  const {locationEntries, locationStatuses, loading} = useContext(WorkspaceContext);
+  const locationEntry = locationEntries.find((entry) => entry.name === repoAddress.location);
+  const locationStatus = locationStatuses[repoAddress.location];
+  if (!locationEntry || !locationStatus) {
+    if (loading) {
+      return <div />;
+    }
+    return <div>Oh no!</div>;
+  }
+  return (
+    <CodeLocationOverviewRoot
+      repoAddress={repoAddress}
+      locationEntry={locationEntry}
+      locationStatus={locationStatus}
+    />
+  );
+};
+
+// eslint-disable-next-line import/no-default-export
+export default QueryfulCodeLocationOverviewRoot;
 
 const CodeLocationMetadataStyle = createGlobalStyle`
   .CodeMirror.cm-s-code-location-metadata.cm-s-code-location-metadata {
     background-color: ${Colors.backgroundDefault()};
     padding: 12px 20px;
+    height: 300px;
   }
 `;
