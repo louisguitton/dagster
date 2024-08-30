@@ -94,7 +94,11 @@ Partitioned assets in Dagster can have dependencies on other partitioned assets.
 - A downstream asset can depend on one or more partitions of an upstream asset
 - The partitioning schemes don't need to be identical, but they should be compatible
 
-TODO
+<CodeExample filePath="guides/data-modeling/partitioning/time_based_partition_dependencies.py" language="python" title="Time-based partition dependencies" />
+
+```python
+
+```
 
 ### Dependencies between time-based and static partitions
 
