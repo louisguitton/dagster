@@ -45,7 +45,7 @@ Configuring a task job to use the custom logger slightly differs from the asset 
 <CodeExample filePath="guides/monitor-alert/custom-logging/task-job-example.py" language="python" title="Add custom logger to task job" />
 
 
-### (Optional) change the logger configuration in the Dagster UI launchpad
+### Changing the logger configuration in the Dagster UI
 
 You can also change the logger configuration in the Dagster UI. This is useful if you want to change the logger
 configuration without changing the code, to use the custom logger on an ad-hoc asset materialization, or change the
