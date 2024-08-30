@@ -47,3 +47,13 @@ DSL
 plaintext
 vCPU
 vCPUs
+
+SLA
+SLAs
+performant
+SOC
+GDPR
+HIPAA
+IAM
+ECS
+AWS
