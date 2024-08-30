@@ -47,9 +47,7 @@ Configuring a task job to use the custom logger slightly differs from the asset 
 
 ### Changing the logger configuration in the Dagster UI
 
-You can also change the logger configuration in the Dagster UI. This is useful if you want to change the logger
-configuration without changing the code, to use the custom logger on an ad-hoc asset materialization, or change the
-verbosity of the logs.
+You can also change the logger configuration in the Dagster UI. This is useful if you want to change the logger configuration without changing the code, to use the custom logger on an ad-hoc asset materialization, or change the verbosity of the logs.
 
 ```yaml
 loggers:
