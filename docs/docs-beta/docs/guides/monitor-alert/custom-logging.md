@@ -32,8 +32,7 @@ This step shows how to add an existing custom logger to your jobs.
 
 ### Add the custom logger to your asset jobs
 
-The following example shows how to add the custom logger to your code location definitions and configure an asset job
-to use it.
+The following example shows how to add the custom logger to your code location definitions and configure an asset job to use it.
 
 <CodeExample filePath="guides/monitor-alert/custom-logging/asset-job-example.py" language="python" title="Add custom logger to asset job" />
 
