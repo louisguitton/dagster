@@ -6,8 +6,7 @@ sidebar_position: 20
 
 # Custom loggers
 
-Customize loggers to emit your logs in a way that's more useful to you, whether to make them more readable or
-easier to process by your log management system.
+Custom loggers are used to alter the structure of the logs being produced by your Dagster pipelines. For example, JSON logs can be produced to more easily be processed by log management systems.
 
 
 ## What you'll learn
